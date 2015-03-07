@@ -36,13 +36,16 @@
   <div class="am-u-lg-2 am-u-md-8 am-u-sm-centered">
     <form class="am-form" method="post" action="/login">
       {{ form.hidden_tag() }}
-      <label for="user_name">用户名:</label>
-      {{ form.user_name() }}
+      <div class="am-input-group">
+        <span class="am-input-group-label"><i class="am-icon-user"></i></span>
+        {{ form.user_name(class='am-form-field') }}
+      </div>
       <br>
-      <label for="user_password">密码:</label>
-      {{ form.user_password() }}
+      <div class="am-input-group">
+        <span class="am-input-group-label"><i class="am-icon-lock"></i></span>
+        {{ form.user_password(class='am-form-field', type='password') }} 
+      </div>
       <br>
-
       <div class="am-cf">
         <label class="am-fl" for="remember-me">
           {{ form.remember_me() }}
