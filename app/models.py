@@ -6,6 +6,7 @@ ROLE_ADMIN = 0
 class User(db.Model):
   user_id = db.Column(db.Integer, primary_key = True)
   user_name = db.Column(db.String(64), index = True, unique = True)
+  user_password = db.Column(db.String(64))
   user_email = db.Column(db.String(120), index = True, unique = True)
   user_role = db.Column(db.SmallInteger, default = ROLE_USER)
 
@@ -18,7 +19,7 @@ class User(db.Model):
   def is_anonymous(self):
     return False
 
-  def get_userId(self):
+  def get_id(self):
     return unicode(self.user_id)
     
   def __repr__(self):
