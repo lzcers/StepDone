@@ -58,3 +58,13 @@ def home(page = 1):
                          task_list = task_list,
                          task_id_to_label_id = task_id_to_label_id,
                          user_labels = user_labels)
+
+@app.route('/task/add_task', methods = ['GET', 'POST'])
+@login_required
+def add_task():
+  return render_template('add_task.html')
+
+@app.route('/user/user_info', methods = ['GET', 'POST'])
+@login_required
+def user_info():
+  return render_template('user_info.html')

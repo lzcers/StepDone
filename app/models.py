@@ -11,6 +11,10 @@ class User(db.Model):
   user_role = db.Column(db.SmallInteger, default = ROLE_USER)
   user_task = db.relationship('Task', backref='task', lazy='dynamic')
 
+  def __init__(self, user_name, user_password):
+    self.user_name = user_name
+    self.user_password = user_password
+
   def is_authenticated(self):
     return True
 
