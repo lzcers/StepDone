@@ -1,5 +1,5 @@
 from app import db 
-
+from datetime import datetime
 ROLE_USER = 1
 ROLE_ADMIN = 0
 
@@ -38,6 +38,14 @@ class Task(db.Model):
   start_date = db.Column(db.DateTime) 
   end_date = db.Column(db.DateTime)
   task_status_flag = db.Column(db.Integer)
+
+  def __init__(self, form_task):
+    format = "%Y-%m-%d" 
+    self.user_id = form_task['user_id']
+    self.task_name = form_task['task_name']
+    self.start_date = datetime.strptime(form_task['start_date'], format)
+    self.end_date = datetime.strptime(form_task['end_date'], format)
+    self.task_status_flag = 0
 
   def __repr__(self):
     return '<task_id %r>' % (self.task_id)

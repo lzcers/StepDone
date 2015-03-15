@@ -1,7 +1,7 @@
 from app import app, db, lm
 from flask import render_template, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
-from forms import LoginForm
+from forms import LoginForm, TaskForm
 from models import User, Task, Label, Task_tags, ROLE_USER, ROLE_ADMIN
 from config import TASK_PER_PAGE
 @lm.user_loader
@@ -42,7 +42,7 @@ def index():
 
 @app.route('/home', methods = ['GET', 'POST'])
 @app.route('/home/', methods = ['GET', 'POST'])
-@app.route('/home/<int:page>', methods = ['GeT', 'POST'])
+@app.route('/home/<int:page>', methods = ['GET', 'POST'])
 @login_required
 def home(page = 1):
   user_id = g.user.user_id
@@ -62,7 +62,20 @@ def home(page = 1):
 @app.route('/task/add_task', methods = ['GET', 'POST'])
 @login_required
 def add_task():
-  return render_template('add_task.html')
+  form = TaskForm()
+  if request.method == 'POST':
+    if form.validate_on_submit():
+      task_name = form.task_name.data
+      start_date = form.start_date.data
+      end_date = form.end_date.data
+      form_task = form.form_serialize()
+      form_task['user_id'] = g.user.user_id
+      task = Task(form_task)  
+      db.session.add(task)
+      db.session.commit()
+    else:
+      return "submit faild"
+  return render_template('add_task.html', form = form)
 
 @app.route('/user/user_info', methods = ['GET', 'POST'])
 @login_required
