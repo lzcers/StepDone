@@ -81,3 +81,11 @@ def add_task():
 @login_required
 def user_info():
   return render_template('user_info.html')
+
+@app.route('/task/del_task', methods = ['POST'])
+@login_required
+def del_task():
+  task = Task.query.get(request.form['task_id'])
+  db.session.delete(task)
+  db.session.commit()
+  return '1'

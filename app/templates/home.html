@@ -59,7 +59,7 @@
             {% for task in task_list.items %}
               <tr>
                 <td><input type="checkbox" /></td>
-                <td>{{ task.task_id }}</td>
+                <td class="task_id">{{ task.task_id }}</td>
                 <td><a href="#">{{ task.task_name }}</a></td>
                 <td>
                   {%for label_id in task_id_to_label_id[task.task_id] %}
@@ -77,7 +77,7 @@
                     <div class="am-btn-group am-btn-group-xs">
                       <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
                       <button class="am-btn am-btn-default am-btn-xs am-text-success"><span class="am-icon-copy"></span> 完成</button>
-                      <button class="am-btn am-btn-default am-btn-xs am-text-danger"><span class="am-icon-trash-o"></span> 删除</button>
+                      <button class="am-btn am-btn-default am-btn-xs am-text-danger delete_task" id="{{ task.task_id }}"><span class="am-icon-trash-o"></span> 删除</button>
                     </div>
                   </div>
                 </td>
