@@ -4,6 +4,8 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 from forms import LoginForm, TaskForm
 from models import User, Task, Label, Task_tags, ROLE_USER, ROLE_ADMIN
 from config import TASK_PER_PAGE
+from datetime import datetime
+
 @lm.user_loader
 def load_user(userid):
     return User.query.get(int(userid))
@@ -30,6 +32,7 @@ def login():
 @app.route('/logout')
 @login_required  
 def logout():
+  logout_user()
   return redirect(url_for('index'))
 
 @app.route('/')
@@ -89,3 +92,19 @@ def del_task():
   db.session.delete(task)
   db.session.commit()
   return '1'
+
+@app.route('/task/edit_task/<task_id>', methods = ['GET', 'POST'])
+@login_required
+def task_edit(task_id):
+  form = TaskForm()
+  task = Task.query.get(task_id)
+  if request.method == 'GET':
+    return render_template('edit_task.html', form = form, task = task)
+  elif request.method == 'POST':
+    if form.validate_on_submit():
+      format = "%Y-%m-%d" 
+      task.task_name = form.task_name.data
+      task.start_date = datetime.strptime(form.start_date.data, format)
+      task.end_date = datetime.strptime(form.end_date.data, format)
+      db.session.commit()
+    return 'test'

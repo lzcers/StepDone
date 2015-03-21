@@ -1,0 +1,65 @@
+{% extends "base_layout.html" %}
+{% block admin_content %}
+<div class="admin-content">
+
+  <div class="am-cf am-padding">
+    <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">编辑任务</strong> / <small>edit_task</small></div>
+  </div>
+
+  <div class="am-tabs am-margin" data-am-tabs="">
+    <ul class="am-tabs-nav am-nav am-nav-tabs">
+      <li class="am-active"><a href="#tab1">任务信息</a></li>   
+    </ul>
+
+    <div class="am-tabs-bd">
+      <div class="am-tab-panel am-fade am-active am-in" id="tab1">
+        <form class="am-form form_task_edit">
+              {{ form.hidden_tag() }}
+            <div class="am-g am-margin-top">
+                <div class="am-u-sm-2 am-text-right">
+                  任务名称
+                </div>
+                <div class="am-u-sm-4">
+                  <input class="am_input_sm" id="task_name" name="task_name" value="{{task.task_name}}" type="text">
+                </div>
+                <div class="am-u-sm-6">*必填</div>
+            </div>
+
+            <div class="am-g am-margin-top">
+              <div class="am-u-sm-2 am-text-right">
+                开始日期
+              </div>
+              <div class="am-u-sm-4 am-u-end">
+                  <div class="am-form-group am-form-icon">
+                    <i class="am-icon-calendar"></i>
+                    <input class="am_input_sm" id="task_name" name="start_date" value="{{task.start_date}}" type="text">
+                  </div>
+              </div>
+            </div> 
+
+            <div class="am-g am-margin-top">
+              <div class="am-u-sm-2 am-text-right">
+                截止日期
+              </div>
+              <div class="am-u-sm-4 am-u-end">
+                  <div class="am-form-group am-form-icon">
+                    <i class="am-icon-calendar"></i>
+                    <input class="am_input_sm" id="task_name" name="end_date" value="{{task.end_date}}" type="text">  
+                  </div>
+              </div>
+            </div>
+        </form>       
+      </div>
+    </div>
+  </div>
+
+  <div class="am-margin">
+    <button type="button" class="am-btn am-btn-primary am-btn-xs submit_task_edit" id="{{ task.task_id }}">提交保存</button>
+    <button type="button" class="am-btn am-btn-primary am-btn-xs undo_submit">放弃保存</button>
+  </div>
+</div>
+{% endblock %}
+
+{% block other_js %}
+  <script type="text/javascript" src="/static/assets/js/task_operation.js"></script>
+{% endblock%}
