@@ -108,3 +108,11 @@ def task_edit(task_id):
       task.end_date = datetime.strptime(form.end_date.data, format)
       db.session.commit()
     return 'test'
+
+@app.route('/task/finish_task/<task_id>', methods = ['GET', 'POST'])
+@login_required
+def task_finish(task_id):
+  task = Task.query.get(task_id)
+  task.task_status_flag = 1
+  db.session.commit()
+  return str(task.task_status_flag)

@@ -57,6 +57,23 @@ $(function(){
             });
     });
 
+    $(".finish_task").on("click", function(){
+        var task_id = $(this).closest("tr").find('.task_id').attr('id');
+            $.ajax({
+                cache: true,
+                type: "GET",
+                url:"/task/finish_task/"+task_id,
+                async: false,
+                error: function(request) {
+                    alert("任务状态更新失败");
+                },
+                success: function(data) {
+                    alert(data)
+                   // location.href = "/home";
+                }
+            });
+    });
+
     $(".edit_task").on("click", function(){
         var task_id = $(this).closest("tr").find('.task_id').attr('id');
         window.location = "/task/edit_task/"+task_id;
